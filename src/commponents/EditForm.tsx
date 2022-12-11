@@ -3,10 +3,10 @@ import React, { FC } from 'react';
 import {
   Input,
   FormControl,
-  FormLabel,
   Button,
   FormHelperText,
   Flex,
+  Box
 } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
@@ -26,7 +26,6 @@ const EditForm: FC<Props> = ({
   return (
     <form onSubmit={handleChangeEditTodoText}>
       <FormControl>
-        <FormLabel>タイトルを編集中</FormLabel>
         <Flex>
           <Input type="text" value={editText} onChange={handleEditChangeText} />
           <Button bg="blue.400" type="submit" mx="5px" color="white">

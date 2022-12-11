@@ -1,15 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import {
-  Box,
-  Container,
-  Text,
-  Button,
-  Flex,
-  ListItem,
-  UnorderedList,
-  Select,
-} from '@chakra-ui/react';
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { Box, Container, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import Header from './commponents/Header';
 import EditForm from './commponents/EditForm';
@@ -67,7 +57,7 @@ const App = () => {
     const filterTodos = () => {
       switch (status) {
         case 'all':
-          setFilterStatus(todo)
+          setFilterStatus(todo);
           break;
         case 'notStarted':
           setFilterStatus(todo.filter((todo) => todo.status === 'notStarted'));
@@ -128,6 +118,7 @@ const App = () => {
     } catch (error) {
       console.error(error);
     }
+    setTodoEdit(false);
   };
 
   const handleStatusChange = (
@@ -156,6 +147,7 @@ const App = () => {
       <Header />
       <Box mt={'60px'}>
         <Container>
+          <Box h="40px">{todoEdit && <Text>タイトルを編集中...</Text>}</Box>
           {todoEdit ? (
             <EditForm
               closeEditTodo={closeEditTodo}
