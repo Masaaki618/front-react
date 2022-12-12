@@ -3,15 +3,11 @@ import {Box, Container, Text} from '@chakra-ui/react';
 import axios from 'axios';
 import Header from './commponents/Header';
 import EditForm from './commponents/EditForm';
-import SelectFind from './commponents/SelectFind';
 import FormInput from './commponents/FormInput';
 import TodoArea from './commponents/TodoArea';
+import SelectStatus from "./commponents/SelectStatus";
+import type {Todo} from "./types/Todo";
 
-type Todo = {
-  id: number;
-  title: string;
-  status: string;
-};
 
 const App = () => {
   const [todo, setTodo] = useState<Todo[]>([]);
@@ -20,7 +16,7 @@ const App = () => {
   const [editText, setEditText] = useState<string>('');
   const [editTextIdNumber, setEditTextIdNumber] = useState<number>();
   const [status, setStatus] = useState<string>('notStarted');
-  const [filterStatus, setFilterStatus] = useState<any>([]);
+  const [filterStatus, setFilterStatus] = useState<Todo[]>([]);
 
   // const inputRef = useRef<HTMLInputElement>(null!);
   const inputRef = useRef<HTMLInputElement | null>(null); //nullが入ってくる可能性がある。
@@ -172,7 +168,7 @@ const App = () => {
             </>
           )}
 
-          <SelectFind status={status} setStatus={setStatus}/>
+          <SelectStatus status={status} setStatus={setStatus}/>
           <TodoArea
             filterStatus={filterStatus}
             handleStatusChange={handleStatusChange}

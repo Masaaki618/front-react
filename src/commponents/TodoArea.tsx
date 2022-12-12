@@ -7,22 +7,23 @@ import {
   Select,
   Box,
 } from '@chakra-ui/react';
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import { FC } from 'react';
+import {EditIcon, DeleteIcon} from '@chakra-ui/icons';
+import {FC} from 'react';
+import {Todo} from "../types/Todo";
 
 type Props = {
-  filterStatus: never[];
-  handleStatusChange: any
-  handleEditTodo: any
-  handleDeleteTodo: any
+  filterStatus: Todo[];
+  handleStatusChange: (e: React.ChangeEvent<HTMLSelectElement>, selectStatusTodo: Todo) => void
+  handleEditTodo: (todo: Todo) => void
+  handleDeleteTodo: (id: number | undefined) => Promise<void>
 };
 
 const TodoArea: FC<Props> = ({
-  filterStatus,
-  handleStatusChange,
-  handleEditTodo,
-  handleDeleteTodo,
-}) => {
+                               filterStatus,
+                               handleStatusChange,
+                               handleEditTodo,
+                               handleDeleteTodo,
+                             }) => {
   return (
     <Box mt={'50'}>
       <UnorderedList>
@@ -46,14 +47,14 @@ const TodoArea: FC<Props> = ({
                   color={'white'}
                   onClick={() => handleEditTodo(todo)}
                 >
-                  <EditIcon />
+                  <EditIcon/>
                 </Button>
                 <Button
                   bg={'red.400'}
                   color={'white'}
                   onClick={() => handleDeleteTodo(todo.id)}
                 >
-                  <DeleteIcon />
+                  <DeleteIcon/>
                 </Button>
               </Flex>
             </Flex>
