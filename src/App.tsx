@@ -130,7 +130,7 @@ const App = () => {
 
   const handleStatusChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
-    selectStatusTodo: any
+    selectStatusTodo: Todo
   ) => {
     axios
       .patch(
