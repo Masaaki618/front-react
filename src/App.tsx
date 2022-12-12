@@ -16,7 +16,7 @@ type Todo = {
 const App = () => {
   const [todo, setTodo] = useState<Todo[]>([]);
   const [inputText, setInputText] = useState<string>('');
-  const [todoEdit, setTodoEdit] = useState<boolean>(false);
+  const [isEditingTodo, setIsEditingTodo] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>('');
   const [editTextIdNumber, setEditTextIdNumber] = useState<number>();
   const [status, setStatus] = useState<string>('notStarted');
@@ -78,7 +78,7 @@ const App = () => {
   const handleEditTodo = (todo: Todo) => {
     setEditText(todo.title);
     setEditTextIdNumber(todo.id);
-    setTodoEdit(true);
+    setIsEditingTodo(true);
   };
 
   const handleEditChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +86,7 @@ const App = () => {
   };
 
   const closeEditTodo = () => {
-    setTodoEdit(false);
+    setIsEditingTodo(false);
     setEditTextIdNumber(0);
   };
 
@@ -106,7 +106,7 @@ const App = () => {
               : todo;
           });
           setTodo(editTodo);
-          setTodoEdit(false);
+          setIsEditingTodo(false);
         });
     }
   };
@@ -118,7 +118,7 @@ const App = () => {
     } catch (error) {
       console.error(error);
     }
-    setTodoEdit(false);
+    setIsEditingTodo(false);
   };
 
   const handleStatusChange = (
@@ -147,8 +147,8 @@ const App = () => {
       <Header />
       <Box mt={'60px'}>
         <Container>
-          <Box h="40px">{todoEdit && <Text>タイトルを編集中...</Text>}</Box>
-          {todoEdit ? (
+          <Box h="40px">{isEditingTodo&& <Text>タイトルを編集中...</Text>}</Box>
+          {isEditingTodo ? (
             <EditForm
               closeEditTodo={closeEditTodo}
               handleChangeEditTodoText={handleChangeEditTodoText}
