@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
-import { Box, Container, Text } from '@chakra-ui/react';
+import {useRef, useState, useEffect} from 'react';
+import {Box, Container, Text} from '@chakra-ui/react';
 import axios from 'axios';
 import Header from './commponents/Header';
 import EditForm from './commponents/EditForm';
@@ -22,11 +22,14 @@ const App = () => {
   const [status, setStatus] = useState<string>('notStarted');
   const [filterStatus, setFilterStatus] = useState<any>([]);
 
-  const inputRef = useRef<HTMLInputElement>(null!);
+  // const inputRef = useRef<HTMLInputElement>(null!);
+  const inputRef = useRef<HTMLInputElement | null>(null); //nullが入ってくる可能性がある。
 
   const handleChangeInputText = () => {
+    if (inputRef === null || inputRef.current === null) return;
     setInputText(inputRef.current.value);
   };
+
   const handleChangeTodoText = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputText !== '') {
@@ -37,15 +40,19 @@ const App = () => {
             ...todo,
             { title: res.data.title, id: res.data.id, status: 'notStarted' },
           ]);
-          inputRef.current.value = null!;
           setInputText('');
+          if (inputRef.current === null) return;
+          inputRef.current.value = "";
         });
     }
   };
 
   const railsApiBaseUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
-    inputRef.current?.focus();
+
+    if (inputRef.current === null) return;
+    inputRef.current.focus();
+
     const fetchDate = async () => {
       const fetchRailsDeta = await axios.get(`${railsApiBaseUrl}/api/v1/posts`);
       setTodo(fetchRailsDeta.data);
@@ -102,7 +109,7 @@ const App = () => {
         .then((res) => {
           const editTodo = todo.map((todo) => {
             return todo.id === editTextIdNumber
-              ? { ...todo, title: res.data.title }
+              ? {...todo, title: res.data.title}
               : todo;
           });
           setTodo(editTodo);
@@ -135,7 +142,7 @@ const App = () => {
       .then((res) => {
         const statusTodo = todo.map((todo) => {
           return todo.id === selectStatusTodo.id
-            ? { ...todo, status: res.data.status }
+            ? {...todo, status: res.data.status}
             : todo;
         });
         setTodo(statusTodo);
@@ -144,10 +151,10 @@ const App = () => {
 
   return (
     <>
-      <Header />
+      <Header/>
       <Box mt={'60px'}>
         <Container>
-          <Box h="40px">{isEditingTodo&& <Text>タイトルを編集中...</Text>}</Box>
+          <Box h="40px">{isEditingTodo && <Text>タイトルを編集中...</Text>}</Box>
           {isEditingTodo ? (
             <EditForm
               closeEditTodo={closeEditTodo}
@@ -165,7 +172,7 @@ const App = () => {
             </>
           )}
 
-          <SelectFind status={status} setStatus={setStatus} />
+          <SelectFind status={status} setStatus={setStatus}/>
           <TodoArea
             filterStatus={filterStatus}
             handleStatusChange={handleStatusChange}
