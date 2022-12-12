@@ -34,11 +34,11 @@ const App = () => {
     e.preventDefault();
     if (inputText !== '') {
       await axios
-        .post(`${railsApiBaseUrl}/api/v1/posts`, { title: inputText })
+        .post(`${railsApiBaseUrl}/api/v1/posts`, {title: inputText})
         .then((res) => {
           setTodo([
             ...todo,
-            { title: res.data.title, id: res.data.id, status: 'notStarted' },
+            {title: res.data.title, id: res.data.id, status: 'notStarted'},
           ]);
           setInputText('');
           if (inputRef.current === null) return;
@@ -76,7 +76,7 @@ const App = () => {
           setFilterStatus(todo.filter((todo) => todo.status === 'done'));
           break;
         default:
-          break;
+          setFilterStatus(todo)
       }
     };
     filterTodos();
