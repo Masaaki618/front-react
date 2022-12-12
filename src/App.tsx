@@ -15,7 +15,7 @@ type Todo = {
 
 const App = () => {
   const [todo, setTodo] = useState<Todo[]>([]);
-  const [inputText, setInputText] = useState<string>('');
+  const [inputText, setInputText] = useState('');
   const [isEditingTodo, setIsEditingTodo] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>('');
   const [editTextIdNumber, setEditTextIdNumber] = useState<number>();
