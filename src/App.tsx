@@ -167,7 +167,7 @@ const App = () => {
               <FormInput
                 handleChangeInputText={handleChangeInputText}
                 handleChangeTodoText={handleChangeTodoText}
-                inputRef={inputRef}
+                ref={inputRef}
               />
             </>
           )}
